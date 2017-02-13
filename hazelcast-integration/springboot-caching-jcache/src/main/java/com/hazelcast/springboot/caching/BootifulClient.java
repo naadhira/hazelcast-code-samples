@@ -20,9 +20,7 @@ package com.hazelcast.springboot.caching;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.hazelcast.HazelcastAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -41,10 +39,7 @@ import static java.lang.System.out;
  *         Twitter: @gamussa
  */
 @SpringBootApplication(scanBasePackages = "com.hazelcast.springboot.caching.BootifulClient")
-// disable Hazelcast Auto Configuration, and use JCache configuration for the client example
-@EnableAutoConfiguration(exclude = {HazelcastAutoConfiguration.class})
 @EnableCaching
-@SuppressWarnings("unused")
 public class BootifulClient {
 
     public static void main(String[] args) {

@@ -1,3 +1,5 @@
+import com.hazelcast.client.HazelcastClient;
+import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.EntryProcessor;
@@ -5,10 +7,16 @@ import com.hazelcast.map.IMap;
 
 import java.util.Map;
 
-public class EntryProcessorMember {
+public class EntryProcessorClient {
 
     public static void main(String[] args) {
-        HazelcastInstance hz = Hazelcast.newHazelcastInstance();
+        ClientConfig config = new ClientConfig();
+        config.getUserCodeDeploymentConfig()
+                .setEnabled(true)
+                .addClass(Employee.class)
+                .addClass(SalaryIncreaseEntryProcessor.class);
+
+        HazelcastInstance hz = HazelcastClient.newHazelcastClient(config);
         IMap<String, Employee> employees = hz.getMap("employees");
         employees.put("John", new Employee(1000));
         employees.put("Mark", new Employee(1000));
